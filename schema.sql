@@ -1,12 +1,14 @@
 /**
 * @author evilnapsis
 * @brief Modelo de la base de datos
+* @modified atomms
 **/
-create database smile;
-use smile;
+
+/*create database smile;
+use smile; */
 
 create table user(
-	id int not null auto_increment primary key,
+	id int not null  primary key,
 	name varchar(50),
 	lastname varchar(50),
 	username varchar(50),
@@ -18,10 +20,10 @@ create table user(
 	created_at datetime
 );
 
-/* insert into user(email,password,is_active,is_admin,created_at) value ("admin",sha1(md5("admin")),1,1,NOW()); */
+
 
 create table recover (
-	id int not null auto_increment primary key,
+	id int not null  primary key,
 	user_id int,
 	code varchar(20),
 	is_used boolean default 0,
@@ -30,26 +32,24 @@ create table recover (
 );
 
 create table level(
-	id int not null auto_increment primary key,
+	id int not null  primary key,
 	name varchar(50)
 );
-insert into level (name) values ("Publico"), ("Solo amigos"), ("Amigos de mis amigos");
+
 
 
 create table country(
-	id int not null auto_increment primary key,
+	id int not null  primary key,
 	name varchar(50),
 	preffix varchar(50)
 );
 
-insert into country(name,preffix) values ("Mexico","mx"),("Argentina","ar"),("Espa~a","es"),("Estados Unidos","eu"),("Chile","cl"),("Colombia","co"),("Peru","pe");
 
 create table sentimental(
-	id int not null auto_increment primary key,
+	id int not null  primary key,
 	name varchar(50)
 );
 
-insert into sentimental(name) values ("Soltero"),("Casado");
 
 create table profile(
 	day_of_birth date ,
@@ -59,8 +59,8 @@ create table profile(
 	image_header varchar(255),
 	title varchar(255),
 	bio varchar(255),
-	likes text,
-	dislikes text,
+	likes integer,
+	dislikes integer,
 	address varchar(255) ,
 	phone varchar(255) ,
 	public_email varchar(255) ,
@@ -75,7 +75,7 @@ create table profile(
 
 
 create table album(
-	id int not null auto_increment primary key,
+	id int not null  primary key,
 	title varchar(200),
 	content varchar(500),
 	user_id int,
@@ -86,7 +86,7 @@ create table album(
 );
 
 create table image(
-	id int not null auto_increment primary key,
+	id int not null  primary key,
 	src varchar(255),
 	title varchar(200),
 	content varchar(500),
@@ -105,7 +105,7 @@ create table image(
 * 2.- event
 **/
 create table post(
-	id int not null auto_increment primary key,
+	id int not null  primary key,
 	title varchar(500) ,
 	content text,
 	lat double ,
@@ -134,7 +134,7 @@ create table post_image(
 * 2.- image
 **/
 create table heart(
-	id int not null auto_increment primary key,
+	id int not null  primary key,
 	type_id int default 1,
 	ref_id int,
 	user_id int,
@@ -143,7 +143,7 @@ create table heart(
 );
 
 create table comment(
-	id int not null auto_increment primary key,
+	id int not null  primary key,
 	type_id int,
 	ref_id int,
 	user_id int,
@@ -155,7 +155,7 @@ create table comment(
 );
 
 create table friend(
-	id int not null auto_increment primary key,
+	id int not null  primary key,
 	sender_id int,
 	receptor_id int,
 	is_accepted boolean default 0,
@@ -166,7 +166,7 @@ create table friend(
 );
 
 create table conversation(
-	id int not null auto_increment primary key,
+	id int not null  primary key,
 	sender_id int,
 	receptor_id int,
 	created_at datetime,
@@ -175,7 +175,7 @@ create table conversation(
 );
 
 create table message(
-	id int not null auto_increment primary key,
+	id int not null  primary key,
 	content text,
 	user_id int,
 	conversation_id int,
@@ -192,7 +192,7 @@ type:
 1.- post, 2.- image
 */
 create table notification(
-	id int not null auto_increment primary key,
+	id int not null  primary key,
 	not_type_id int,
 	type_id int,
 	ref_id int,
@@ -206,7 +206,7 @@ create table notification(
 
 /* para grupos: no puedo usar la palabra reservada group, entonces uso team */
 create table team (
-	id int not null auto_increment primary key,
+	id int not null  primary key,
 	image varchar(200),
 	title varchar(200),
 	description varchar(500) ,
@@ -215,3 +215,5 @@ create table team (
 	created_at datetime,
 	foreign key (user_id) references user(id)
 );
+
+insert into user(id,email,password,is_active,is_admin,created_at) values (1,'admin','mypassword',1,1,NOW());
