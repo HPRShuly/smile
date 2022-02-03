@@ -31,7 +31,7 @@ create table recover (
 	foreign key(user_id) references user(id)
 );
 
-create table level(
+create table WORLD QUANTITY(
 	id int not null  primary key,
 	name varchar(50)
 );
@@ -42,12 +42,6 @@ create table country(
 	id int not null  primary key,
 	name varchar(50),
 	preffix varchar(50)
-);
-
-
-create table sentimental(
-	id int not null  primary key,
-	name varchar(50)
 );
 
 
@@ -79,10 +73,10 @@ create table album(
 	title varchar(200),
 	content varchar(500),
 	user_id int,
-	level_id int,
+	world_quantity int,
 	created_at datetime,
 	foreign key (user_id) references user(id),
-	foreign key (level_id) references level(id)
+	foreign key (world_quantity) references level(id)
 );
 
 create table image(
@@ -91,12 +85,12 @@ create table image(
 	title varchar(200),
 	content varchar(500),
 	user_id int,
-	level_id int,
+	world_quantity int,
 	album_id int,
 	created_at datetime,
 	foreign key (album_id) references album(id),
 	foreign key (user_id) references user(id),
-	foreign key (level_id) references level(id)
+	foreign key (world_quantity) references level(id)
 );
 
 /**
@@ -115,10 +109,10 @@ create table post(
 	receptor_type_id int default 1, /* 1.- user, 2.- group **/
 	author_ref_id int,
 	receptor_ref_id int,
-	level_id int,
+	world_quantity int,
 	post_type_id int default 1,
 	created_at datetime,
-	foreign key (level_id) references level(id)
+	foreign key (world_quantity) references level(id)
 );
 
 create table post_image(
@@ -165,25 +159,6 @@ create table friend(
 	foreign key (receptor_id) references user(id)
 );
 
-create table conversation(
-	id int not null  primary key,
-	sender_id int,
-	receptor_id int,
-	created_at datetime,
-	foreign key (sender_id) references user(id),
-	foreign key (receptor_id) references user(id)
-);
-
-create table message(
-	id int not null  primary key,
-	content text,
-	user_id int,
-	conversation_id int,
-	created_at datetime,
-	is_readed boolean default 0,
-	foreign key (user_id) references user(id),
-	foreign key (conversation_id) references conversation(id)
-);
 
 /*
 not_type_id: 
